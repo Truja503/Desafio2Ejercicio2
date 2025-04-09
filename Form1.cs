@@ -58,7 +58,9 @@ namespace Desafio2Ejercicio2
                 return;
             }
             HeapMin.InsertarValor(comboBox1.SelectedIndex, dateTimePicker1.Value, textBox1.Text, richTextBox1.Text);
-            HeapMin.MostrarMonticuloEnGrid(dataGridView1);
+            Tarea[] tareasOrdenadas = HeapMin.OrdenarVector(); // Llama al método que ordena las tareas
+            HeapMin.MostrarMonticuloEnGrid(dataGridView1, tareasOrdenadas);
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -71,7 +73,8 @@ namespace Desafio2Ejercicio2
         {
             HeapMin.borrarPrimero();
             dataGridView1.Rows.Clear();
-            HeapMin.MostrarMonticuloEnGrid(dataGridView1);
+            Tarea[] tareasOrdenadas = HeapMin.OrdenarVector();
+            HeapMin.MostrarMonticuloEnGrid(dataGridView1, tareasOrdenadas);
 
         }
     }
