@@ -111,7 +111,7 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
                 idhijo = 2 * idpadre;
                 if (idhijo <= totnodos)
                 {
-                  
+                    //resalta a nodo padre
 
                     //determina el idhijo con valor mayor
                     idhijomayor = idhijo;
@@ -217,7 +217,7 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
         }
 
         //Ordena contenido de un vector usando Monticulo y algoritmo HeapSort 
-       /* public int[] OrdenarVector()
+        public int[] OrdenarVector()
         {
             //utiliza metodo HeapSort para ordenar vector ingresado por usuario 
             //contador de indice de posic. dentro de vector ya ordenado 
@@ -245,73 +245,33 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
 
             return valoresHeapSort;
         }
-*/
-        public Tarea[] OrdenarVector()
-        {
-            // Utiliza método HeapSort para ordenar el vector ingresado por el usuario 
-            // Contador de índice de posición dentro del vector ya ordenado 
-            int c = 0;
-            if (totnodos == 0)
-                return null; // El Heap está vacío 
-
-            // Crea un vector que tendrá valores del Heap ya ordenados 
-            Tarea[] tareasOrdenadas = new Tarea[0]; // Vector vacío 
-
-            while (totnodos > 0)
-            {
-                // ID del último nodo padre a ordenar del Heap actual 
-                int id = totnodos / 2;
-
-                // Ordena al último nodo padre y sus nodos hijos 
-                while (id > 0)
-                {
-                    Descender(id, false); // No aplicará recursividad 
-                                          // Determina el padre anterior al actual para ordenarlo
-                    id = id - 1;
-                }
-
-                // Agrega una posición más a la longitud del vector
-                Array.Resize(ref tareasOrdenadas, c + 1);
-                tareasOrdenadas[c] = matriz[1]; // Guarda la tarea en la raíz
-                BorrarRaiz(false); // Elimina la raíz del montículo
-                c++;
-            }
-
-            return tareasOrdenadas; // Devuelve el vector de tareas ordenadas
-        }
 
 
         //Encapsulamos los metodos para poder utilizarlos en el formulario
 
 
-        private void mostrarMonticuloEnGrid(DataGridView dataGridView, Tarea[] tareas)
+        private void mostrarMonticuloEnGrid(DataGridView dataGridView)
         {
             // Limpiar el DataGridView antes de agregar nuevos datos
             dataGridView.Rows.Clear();
 
-            // Verificar si el vector de tareas es nulo o está vacío
-            if (tareas == null || tareas.Length == 0)
-            {
-                return; // No hay tareas para mostrar
-            }
-
-            // Recorrer el vector de tareas y agregarlas al DataGridView
-            foreach (var tarea in tareas)
+            // Recorrer todos los nodos del montículo y agregarlos al DataGridView
+            for (int i = 1; i <= totnodos; i++)
             {
                 dataGridView.Rows.Add(
-                    tarea.correlativo,
-                    tarea.descripcion, 
-                    tarea.fecha,
-                    Prioridad(tarea.tipodetarea), // Usando el método Prioridad para obtener la descripción de la prioridad
-                    tarea.responsable 
+                    matriz[i].correlativo,
+                    matriz[i].descripcion,
+                    matriz[i].fecha,
+                    Prioridad(matriz[i].tipodetarea),
+                    matriz[i].responsable
                 );
             }
 
         }
-        public void MostrarMonticuloEnGrid(DataGridView dataGridView, Tarea[] tareas)
+        public void MostrarMonticuloEnGrid(DataGridView dataGridView)
         {
 
-            mostrarMonticuloEnGrid(dataGridView, tareas);
+            mostrarMonticuloEnGrid(dataGridView);
         }
         public String Prioridad(int prioridadn)
         {
