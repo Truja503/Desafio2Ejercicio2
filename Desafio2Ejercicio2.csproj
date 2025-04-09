@@ -48,14 +48,12 @@
   <ItemGroup>
     <Compile Include="ClasesMonticulos\Monticulo.cs" />
     <Compile Include="ClasesMonticulos\Tarea.cs" />
-    <Compile Include="Cola.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="NodoCola.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

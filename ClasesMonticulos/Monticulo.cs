@@ -151,7 +151,7 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
 
 
                 //Crea nuevo nodo en ultima posicion de matriz
-                matriz[totnodos] = new Tarea(Tipotarea, Fecha, responsbale, Descripcion);
+                matriz[totnodos] = new Tarea(Tipotarea, Fecha, responsbale, Descripcion, totnodos);
 
 
                 if (ordenarnodo)
@@ -248,79 +248,6 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
             return valoresHeapSort;
         }
 
-        public int[] Recorrer(int tipoRecorrido)
-        {
-            Cola cola = new Cola();
-            switch (tipoRecorrido)
-            {
-                case 0:
-                    RecorridoInOrden(1, cola);
-                    break;
-                case 1:
-                    RecorridoPreOrden(1, cola);
-                    break;
-                case 2:
-                    RecorridoPostOrden(1, cola);
-                    break;
-                default:
-                    throw new ArgumentException("Tipo de recorrido no válido.");
-            }
-            int tot = cola.TotNodosCola();
-            int[] array = new int[tot];
-            NodoCola actual = cola.Primero();
-            int index = 0;
-
-            while (actual != null)
-            {
-                array[index++] = actual.info;
-                actual = actual.sig;
-            }
-
-            return array;
-
-        }
-
-        private void RecorridoInOrden(int idnodo, Cola cola)
-        {
-            if (idnodo > totnodos) return;
-
-            // Recorrer hijo izquierdo
-            RecorridoInOrden(idnodo * 2, cola);
-            // Visitar nodo actual
-
-            NodoCola nodo = new NodoCola(matriz[idnodo].tipodetarea);
-            cola.Encolar(nodo);
-            // Recorrer hijo derecho
-            RecorridoInOrden(idnodo * 2 + 1, cola);
-        }
-
-        private void RecorridoPreOrden(int idnodo, Cola cola)
-        {
-            if (idnodo > totnodos) return;
-
-            // Visitar nodo actual
-
-            NodoCola nodo = new NodoCola(matriz[idnodo].tipodetarea);
-            cola.Encolar(nodo);
-            // Recorrer hijo izquierdo
-            RecorridoPreOrden(idnodo * 2, cola);
-            // Recorrer hijo derecho
-            RecorridoPreOrden(idnodo * 2 + 1, cola);
-        }
-
-        private void RecorridoPostOrden(int idnodo, Cola cola)
-        {
-            if (idnodo > totnodos) return;
-
-            // Recorrer hijo izquierdo
-            RecorridoPostOrden(idnodo * 2, cola);
-            // Recorrer hijo derecho
-            RecorridoPostOrden(idnodo * 2 + 1, cola);
-            // Visitar nodo actual
-
-            NodoCola nodo = new NodoCola(matriz[idnodo].tipodetarea);
-            cola.Encolar(nodo);
-        }
 
         //Encapsulamos los metodos para poder utilizarlos en el formulario
 
