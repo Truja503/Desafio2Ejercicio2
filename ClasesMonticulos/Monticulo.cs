@@ -54,13 +54,13 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
 
         public void IntercmabiarNodos(int id1, int id2)
         {
-            int valortemp;
-
+           
+            Tarea temp = new Tarea();
 
             //intercambia posiciones de nodos
-            valortemp = matriz[id1].tipodetarea;
-            matriz[id1].tipodetarea = matriz[id2].tipodetarea;
-            matriz[id2].tipodetarea = valortemp;
+            temp= matriz[id1];
+            matriz[id1] = matriz[id2];
+            matriz[id2] = temp;
 
             //restaura apariencia estandar de nodos
 
@@ -68,11 +68,9 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
 
         private void SubirNodo(int id, bool continuar = true)
         {
-            //si nodo actual es mayor que su nodo padre, lo intercambia
+           
             int idpadre;
-            //evalua si nodo hijo debe ser intercambiado (ordenado) con su nodo padre
-            //y si se requiere, se continua recursivamente hasta ordenar nodo id en Heap
-            //Este proc. de ordenamiento se repetira hasta que se llegue al nodo Raiz
+     
             if (id > 1)
             {
                 idpadre = matriz[id].Padre();
@@ -89,6 +87,9 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
                     //continua ordenando al nuevo nodo padre en montículo
                     if (continuar)
                         SubirNodo(id);
+                }else if (matriz[id].fecha < matriz[idpadre].fecha)
+                {
+                    IntercmabiarNodos(id, idpadre);
                 }
 
 
@@ -144,11 +145,8 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
         public bool InsertarValor(int Tipotarea, DateTime Fecha, string responsbale, string Descripcion, bool ordenarnodo = true)
         {
             bool res = false;
-            //verifica que valornodo sea aceptado en el Monticulo
-            if (Tipotarea >= 0 && Tipotarea < 5)
-            {
-                totnodos++;
 
+                totnodos++;
 
                 //Crea nuevo nodo en ultima posicion de matriz
                 matriz[totnodos] = new Tarea(Tipotarea, Fecha, responsbale, Descripcion, totnodos);
@@ -157,7 +155,7 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
                 if (ordenarnodo)
                     SubirNodo(totnodos);
                 res = true;
-            }
+            
             return res;
         }
         //Operaciones para remover valor maximo de un Heap
@@ -254,7 +252,21 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
 
         private void mostrarMonticuloEnGrid(DataGridView dataGridView)
         {
-            dataGridView.Rows.Add(matriz[totnodos].correlativo, matriz[totnodos].descripcion, matriz[totnodos].fecha, Prioridad(matriz[totnodos].tipodetarea), matriz[totnodos].responsable);
+            // Limpiar el DataGridView antes de agregar nuevos datos
+            dataGridView.Rows.Clear();
+
+            // Recorrer todos los nodos del montículo y agregarlos al DataGridView
+            for (int i = 1; i <= totnodos; i++)
+            {
+                dataGridView.Rows.Add(
+                    matriz[i].correlativo,
+                    matriz[i].descripcion,
+                    matriz[i].fecha,
+                    Prioridad(matriz[i].tipodetarea),
+                    matriz[i].responsable
+                );
+            }
+
         }
         public void MostrarMonticuloEnGrid(DataGridView dataGridView)
         {
