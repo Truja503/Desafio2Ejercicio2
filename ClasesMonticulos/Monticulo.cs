@@ -160,7 +160,7 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
         }
         //Operaciones para remover valor maximo de un Heap
 
-        private int BorrarRaiz(bool ActualizarVista = true)
+        private int BorrarRaiz()
         {
             //Remueve y retorna valor de nodo raiz (clave minima) del Heap
             int valorraiz = -1; //asume que monticulo esta vacio
@@ -183,67 +183,11 @@ namespace Desafio2Ejercicio2.ClasesMonticulos
         }
         public int BorrarMaximo()
         {
-            int numborrar = BorrarRaiz(false);
+            int numborrar = BorrarRaiz();
             if (totnodos > 0)
                 Descender(1);
             //retorna valor del raiz inicial
             return numborrar;
-        }
-        //Operaciones para obtener vector ordenado de un Heap 
-
-        public int[] EjecutarHeapSort()
-        {
-            int i; //contador de indice de posiciones del vector ya ordenado 
-            int valorRaiz; //valor de nodo raiz de monticulo 
-            if (totnodos > 0)
-            {
-                //metodo de ordenamiento rapido de prioridad (HeapSort) 
-                //crea vector y longitud igual a cantidad nodos del Heap 
-                valoresHeapSort = new int[0];
-                i = 0; //contador de elementos extraidos de Heap while (totnodos > 0) 
-                while (totnodos > 0)
-                { //extrae raiz (clave menor, heap minimizante). 
-                    valorRaiz = BorrarRaiz(false);
-                    //agrega una posicion mas a la longitud de vector
-                    Array.Resize(ref valoresHeapSort, i + 1);
-                    valoresHeapSort[i] = valorRaiz;
-                    Descender(1);
-                    i++;
-                }
-            }
-            else return null;
-
-            return valoresHeapSort;
-        }
-
-        //Ordena contenido de un vector usando Monticulo y algoritmo HeapSort 
-        public int[] OrdenarVector()
-        {
-            //utiliza metodo HeapSort para ordenar vector ingresado por usuario 
-            //contador de indice de posic. dentro de vector ya ordenado 
-            int c = 0;
-            if (totnodos == 0)
-                return null; // Heap esta vacio 
-                             //crea vector, que tendra valores del Heap ya ordenados 
-            valoresHeapSort = new int[0]; //vector vacio 
-            while (totnodos > 0)
-            {
-                //id del ultimo nodo padre a ordenar del Heap actual 
-                int id = totnodos / 2;
-                //ordena a ultimo nodo padre y sus nodos hijos 
-                while (id > 0)
-                {
-                    Descender(id, false); //no aplicara recursividad 
-                                          //determina el padre anterior al actual para ordenarlo
-                    id = id - 1;
-                }
-                //agrega una posicion mas a la longitud de vector
-                Array.Resize(ref valoresHeapSort, c + 1);
-                valoresHeapSort[c] = BorrarRaiz(false);
-                c++;
-            }
-
-            return valoresHeapSort;
         }
 
 
